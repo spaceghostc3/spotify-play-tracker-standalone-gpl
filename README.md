@@ -7,15 +7,6 @@ playing, keeps the history permanently (no ads, no first-in-first-out
 cutoff), and reports on it — top tracks and artists, searchable history,
 and end-to-end playlist sessions.
 
-Updated 2026-11-11 to match the hosted tracker: ad-break handling and
-Sessions-tab grouping (both from the hosted 2026-11-04 fix — see "Using
-it"), free-text fields capped at 1000 characters, and artwork URLs
-host-checked against Spotify's image CDNs. Re-verified the same day:
-typecheck clean, client builds, and a scripted sequence confirmed the
-ad-break behavior (no play logged, session stays open, auto-pause
-counter reset), session grouping, the 1000-character cap, and artwork
-host-check rejection.
-
 GPL edition (2026-11-18): this copy is licensed under the GNU General
 Public License v3 (or any later version) — see License below. The only
 changes from the 2026-11-11 package are the license file, the copyright

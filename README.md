@@ -7,10 +7,8 @@ playing, keeps the history permanently (no ads, no first-in-first-out
 cutoff), and reports on it — top tracks and artists, searchable history,
 and end-to-end playlist sessions.
 
-GPL edition (2026-11-18): this copy is licensed under the GNU General
-Public License v3 (or any later version) — see License below. The only
-changes from the 2026-11-11 package are the license file, the copyright
-headers on the source files, and this section.
+This copy is licensed under the GNU General
+Public License v3 (or any later version) — see License below.
 
 ## Requirements
 

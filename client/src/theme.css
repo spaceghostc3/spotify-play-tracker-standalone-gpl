@@ -1,0 +1,93 @@
+/*
+ * Spotify Play Tracker - tracks your Spotify listening history, with full
+ * per-playlist session reports.
+ * Copyright (C) 2026 Robert Dreyer
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-lg: 18px;
+  --text-lg--line-height: 28px;
+  --text-xl: 20px;
+  --text-xl--line-height: 28px;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 32px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+  --text-4xl: 36px;
+  --text-4xl--line-height: 40px;
+  --text-5xl: 48px;
+  --text-5xl--line-height: 52px;
+}
+
+:root {
+  color-scheme: light dark;
+  --bg: #eef3ec;
+  --surface: #ffffff;
+  --surface-alt: #e2ebdd;
+  --text: #12211a;
+  --dim: #5c6f61;
+  --border: #cfdcc9;
+  --accent: #0e9e4a;
+  --accent-ink: #ffffff;
+  --amber: #a86e00;
+  --danger: #b3352b;
+  --radius: 14px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface-alt);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c1210;
+    --surface: #141b17;
+    --surface-alt: #1b251f;
+    --text: #edf2ec;
+    --dim: #93a398;
+    --border: #263229;
+    --accent: #1ed760;
+    --accent-ink: #06130b;
+    --amber: #f5b841;
+    --danger: #ff7a6b;
+  }
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-display {
+  font-family:
+    ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui,
+    sans-serif;
+  letter-spacing: -0.01em;
+}

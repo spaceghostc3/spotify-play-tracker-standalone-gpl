@@ -1,0 +1,1 @@
+{"compilerOptions":{"jsx":"react-jsx","lib":["ES2022","DOM"],"tsBuildInfoFile":"./.tsbuildinfo.client","types":["bun-types","react","react-dom"]},"extends":"./tsconfig.json","include":["client/src/**/*","server/src/**/*"]}

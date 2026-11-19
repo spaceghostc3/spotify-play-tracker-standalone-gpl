@@ -1,0 +1,10 @@
+node_modules/
+client/dist/
+tracker.db
+tracker.db-journal
+tracker.db-wal
+tracker.db-shm
+spotify-tokens.json
+.env
+.tsbuildinfo.client
+.tsbuildinfo.server

@@ -184,45 +184,6 @@ bun.lock                 Pinned dependency tree
 tsconfig.json / tsconfig.client.json / tsconfig.server.json
 .env.example             Configuration template
 ```
-
-## What changed from the hosted version
-
-- **Database:** the space SDK's `ctx.db` became Drizzle over a local
-  libSQL/SQLite file, using the same schema and migrations.
-- **Spotify polling:** the connector CLI became direct Spotify Web API
-  calls (`/v1/me/player/currently-playing`) with an OAuth refresh token.
-  The Web API's playlist context has no name, so playlist names are
-  fetched with `/v1/playlists/{id}?fields=name` and cached.
-- **Scheduling:** the managed cron job became an in-process timer
-  (`setInterval`, 60s default) with an overlap guard; auto-pause is still
-  enforced inside `refreshNowPlaying`.
-- **Artwork:** the privileged host call became a plain `fetch` to
-  Spotify's public oEmbed endpoint (15s timeout, origin+path only).
-- **Ad breaks and session grouping (2026-11-11):** ported from the
-  hosted tracker's 2026-11-04 fix. The Web API payload is checked for
-  an ad (`currently_playing_type: "ad"`, an ad-type or `spotify:ad:`
-  item, or playback running with no track item) before the track
-  checks, and `recordPlay` handles the ad observation exactly as the
-  hosted version does; `listSessions` groups split fragments of one
-  listen the same way (30-minute window).
-- **Validation caps and artwork host check (2026-11-11):** also ported
-  from the hosted version. Free-text fields (track name, artists,
-  context name/URI, playback status, note) are capped at 1000
-  characters, and artwork URLs are accepted only as https URLs on
-  Spotify's image CDNs (`*.scdn.co`, `*.spotifycdn.com`) — checked when
-  fetched, when reused from a cached row, and again on the way out.
-- **Client transport:** the SDK action client became `fetch` POSTs to
-  `/api/<action>`; the SDK query client became a plain react-query
-  `QueryClient`; the SDK safe-area component became a local stub. The
-  only change to `App.tsx` itself is that one import line.
-- **Checks are synchronous:** in the hosted version a check returned
-  "result lands within a minute" because a poll agent reported back
-  asynchronously; here the check runs inline and the button message
-  describes the actual outcome.
-- **What did not change:** dedupe rules (including the paused-track fix),
-  session open/close rules, the 3-inactive-check auto-pause, report
-  math, validation caps, and the Spotify-URL-only rule for stored links.
-
 ## Security notes
 
 - The server binds to `127.0.0.1` by default and has no login, mirroring

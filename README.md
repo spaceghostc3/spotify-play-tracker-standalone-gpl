@@ -1,19 +1,18 @@
-# Spotify Play Tracker — Standalone Edition
+# Spotify Play Tracker Standalone GPL Edition
 
 A private replacement for statsforspotify-style "recently played" tracking
 that runs on your own machine (Windows, Linux, or macOS) and serves a local
 web page you open in a browser. It logs what a connected Spotify account is
 playing, keeps the history permanently (no ads, no first-in-first-out
-cutoff), and reports on it — top tracks and artists, searchable history,
+cutoff), and reports on top tracks and artists, searchable history,
 and end-to-end playlist sessions.
 
-This copy is licensed under the GNU General
-Public License v3 (or any later version) — see License below.
+This copy is licensed under the GNU General Public License v3 (or any later version); see License below.
 
 ## Requirements
 
 - **Bun** (the project pins `bun@1.3.10`; any recent Bun 1.x works).
-  Install from https://bun.sh — one command on all three OSes.
+  Install from https://bun.sh (one command on all three Operating Systems.
 - **A free Spotify developer app** (for API access). See "Spotify setup".
 - **A browser** to open the local page.
 - No Node.js, database server, or hosting account needed. Storage is a
@@ -42,7 +41,7 @@ bun start
 # 6. Open http://127.0.0.1:3000 in your browser
 ```
 
-Keep the terminal running while you want tracking — the poll timer lives
+Keep the terminal running while you want tracking. The poll timer lives
 in the server process. Press Ctrl+C to stop it.
 
 ## Spotify setup
@@ -54,7 +53,7 @@ in the server process. Press Ctrl+C to stop it.
 3. Copy the app's Client ID and Client Secret into `.env`.
 4. Run `bun run auth`. It prints an authorization URL: open it, sign in,
    and authorize. Spotify redirects to a `127.0.0.1` address that won't
-   load — that's expected. Copy the full URL (or just the `code=` value)
+   load (expected behavior). Copy the full URL (or just the `code=` value)
    from the address bar and paste it at the prompt.
 5. The helper saves a refresh token to `spotify-tokens.json` (mode 0600,
    gitignored). The server uses it to obtain short-lived access tokens;
@@ -64,28 +63,28 @@ in the server process. Press Ctrl+C to stop it.
 Requested scopes: `user-read-playback-state` (see what's playing) and
 `playlist-read-private` (resolve playlist names for your private
 playlists). No playback control, no library changes, no data written to
-Spotify — the app only reads.
+Spotify. This is a read-only app.
 
 ## Using it
 
 Open http://127.0.0.1:3000. Four tabs:
 
-- **Now Playing** — the current/last track snapshot (title, artists,
+- **Now Playing**: the current/last track snapshot (title, artists,
   playlist context, cover art, progress), totals (plays, unique tracks,
   unique artists), and the **Check now** button for an immediate manual
   check. If automatic checks have paused, this card shows "Auto-checks
   paused" and the button reads **Resume checks**.
-- **History** — every logged play, newest first, searchable by track,
+- **History**: every logged play, newest first, searchable by track,
   artist, or playlist. Each row has a **Remove** button that deletes just
   that play.
-- **Sessions** — playlist listens end to end: playlist name (linked),
+- **Sessions**: playlist listens end to end: playlist name (linked),
   date, session start/end, total span, and tracks in play order with
   cover art and per-track start–end times. Fragments of one listen that
   were split by an ad break, a pause, or a brief gap (under about 30
   minutes) are shown as a single session entry; a genuinely separate
   listen after a longer gap stays its own entry. Sessions with all
   tracks removed show an honest empty note.
-- **Reports** — top tracks and artists for 7 days, 30 days, or all time,
+- **Reports**: top tracks and artists for 7 days, 30 days, or all time,
   with rank movement vs the previous period and a plays-per-day chart.
 
 Everyday notes:
@@ -99,9 +98,9 @@ Everyday notes:
   tap **Resume checks** before your next listen or that listen will not
   be logged.
 - Ad breaks don't stop tracking: when Spotify plays an ad, the check
-  sees the break — the ad is never logged as a play, an open playlist
+  sees the break and the ad is never logged as a play. An open playlist
   session stays open across it, and the break counts as active
-  listening, so a run of consecutive ads can't trip the 3-check
+  listening; a run of consecutive ads can't trip the 3-check
   auto-pause mid-session. During a break the Now Playing card shows
   "Ad break · tracking continues."
 
@@ -115,8 +114,7 @@ Everyday notes:
   tracker over `tracker.db` before first start. The server detects the
   existing schema and marks all migrations applied, so your plays,
   sessions, and status carry over untouched.
-- `spotify-tokens.json` holds only the Spotify refresh token — never
-  share it or commit it (it's gitignored, as is `.env`).
+- `spotify-tokens.json` holds only the Spotify refresh token. NEVER SHARE IT OR COMMIT IT (it's gitignored, as is `.env`).
 
 ## Configuration
 
@@ -178,7 +176,7 @@ tsconfig.json / tsconfig.client.json / tsconfig.server.json
 - The server binds to `127.0.0.1` by default and has no login, mirroring
   the hosted version's owner-gating. Treat localhost binding as the
   access control: do not set `HOST` to a public address or expose the
-  port without adding authentication — anyone who can reach it could
+  port without adding authentication. Anyone who can reach it could
   invoke every endpoint, including deleting plays.
 - No secret, token, password, or Spotify credential appears in source
   code. Credentials live in `.env` and `spotify-tokens.json` only.
@@ -193,21 +191,21 @@ tsconfig.json / tsconfig.client.json / tsconfig.server.json
 
 ## Troubleshooting
 
-- **"Spotify isn't connected yet"** — run `bun run auth` (after filling
+- **"Spotify isn't connected yet"**: run `bun run auth` (after filling
   in `.env`), then restart the server. The Check now button re-tests
   immediately.
-- **"Spotify rejected the connection"** — the refresh token was revoked
+- **"Spotify rejected the connection"**: the refresh token was revoked
   or the app's credentials changed. Run `bun run auth` again.
-- **"Nothing playing" while music plays** — the Web API only reports an
+- **"Nothing playing" while music plays**: the Web API only reports an
   active Spotify session. Open Spotify on a device and start playback,
   then tap Check now. A 204 response (nothing) is normal when idle.
-- **Port in use** — set `PORT` in `.env` (e.g. `PORT=3001`) and reopen
+- **Port in use**: set `PORT` in `.env` (e.g. `PORT=3001`) and reopen
   that URL.
-- **Build note** — `bun install` may report one blocked postinstall
+- **Build note**: `bun install` may report one blocked postinstall
   (`@parcel/watcher`). That's Tailwind's optional file watcher for
   `--watch` mode; one-shot builds don't need it, and the build works
   without it.
-- **Windows notes** — all commands are identical in PowerShell. Bun's
+- **Windows notes**: all commands are identical in PowerShell. Bun's
   installer and the `bun` commands work the same; `.env` and path
   handling need no changes.
 
